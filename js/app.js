@@ -26,7 +26,31 @@ const sections = document.querySelectorAll('section');
  * Start Helper Functions
  *
 */
-checkLocations = (elements) => {
+
+
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ *
+*/
+
+
+// build the nav
+buildNav = (elements) => {
+    for (let element of elements) {
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        a.setAttribute('href', `#${element.id}`);
+        a.classList.add('menu__link');
+        a.appendChild(document.createTextNode(element.dataset.nav));
+        li.appendChild(a);
+        navBarList.append(li);
+    }
+}
+
+
+// Add class 'active' to section when near top of viewport
+addActive = (elements) => {
     for (let element of elements) {
         console.log(element.getBoundingClientRect().top);
         if (element.getBoundingClientRect().top < 1 && element.getBoundingClientRect().top > -1) {
@@ -39,39 +63,14 @@ checkLocations = (elements) => {
 }
 
 
-
-/**
- * End Helper Functions
- * Begin Main Functions
- *
-*/
-
-
-// build the nav
-for (let item of navItems) {
-    let li = document.createElement('li');
-    let a = document.createElement('a');
-    a.setAttribute('href', `#${item.id}`);
-    a.classList.add('menu__link');
-    a.appendChild(document.createTextNode(item.dataset.nav));
-    li.appendChild(a);
-    navBarList.append(li);
-}
-
-// Add class 'active' to section when near top of viewport
-
-
-
 // Scroll to anchor ID using scrollTO event
-navBarList.addEventListener('click', elem => {
-    elem.preventDefault();
-    const anchorId = elem.target.hash;
-    const anchorElement = document.querySelector(`${anchorId}`);
-    anchorElement.scrollIntoView({
+
+scrollToSection = (elem) => {
+    elem.scrollIntoView({
         behavior: 'smooth'
     });
-    checkLocations(sections);
-});
+}
+
 
 /**
  * End Main Functions
@@ -80,7 +79,17 @@ navBarList.addEventListener('click', elem => {
 */
 
 // Build menu 
+buildNav(navItems);
 
 // Scroll to section on link click
+navBarList.addEventListener('click', elem => {
+    elem.preventDefault();
+    const anchorId = elem.target.hash;
+    const anchorElement = document.querySelector(`${anchorId}`);
+    scrollToSection(anchorElement);
+});
 
 // Set sections as active
+window.addEventListener('scroll', elem => {
+    addActive(sections);
+})
