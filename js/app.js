@@ -33,6 +33,9 @@ const navItems = document.querySelectorAll('[data-nav]');
  * Begin Main Functions
  *
 */
+
+
+// build the nav
 for (let item of navItems) {
     let li = document.createElement('li');
     let a = document.createElement('a');
@@ -43,14 +46,19 @@ for (let item of navItems) {
     navBarList.append(li);
 }
 
-// build the nav
-
-
 // Add class 'active' to section when near top of viewport
 
 
 // Scroll to anchor ID using scrollTO event
-
+navBarList.addEventListener('click', elem => {
+    elem.preventDefault();
+    const anchorId = elem.target.hash;
+    const anchorElement = document.querySelector(`${anchorId}`);
+    console.log(anchorElement);
+    anchorElement.scrollIntoView({
+        behavior: 'smooth'
+    });
+ });
 
 /**
  * End Main Functions
