@@ -19,12 +19,24 @@
 */
 const navBarList = document.querySelector('#navbar__list');
 const navItems = document.querySelectorAll('[data-nav]');
+const sections = document.querySelectorAll('section');
 
 /**
  * End Global Variables
  * Start Helper Functions
  *
 */
+checkLocations = (elements) => {
+    for (let element of elements) {
+        console.log(element.getBoundingClientRect().top);
+        if (element.getBoundingClientRect().top < 1 && element.getBoundingClientRect().top > -1) {
+            element.classList.add('your-active-class');
+        }
+        else {
+            element.classList.remove('your-active-class');
+        }
+    }
+}
 
 
 
@@ -49,16 +61,17 @@ for (let item of navItems) {
 // Add class 'active' to section when near top of viewport
 
 
+
 // Scroll to anchor ID using scrollTO event
 navBarList.addEventListener('click', elem => {
     elem.preventDefault();
     const anchorId = elem.target.hash;
     const anchorElement = document.querySelector(`${anchorId}`);
-    console.log(anchorElement);
     anchorElement.scrollIntoView({
         behavior: 'smooth'
     });
- });
+    checkLocations(sections);
+});
 
 /**
  * End Main Functions
