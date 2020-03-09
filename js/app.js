@@ -37,6 +37,7 @@ for (let item of navItems) {
     let li = document.createElement('li');
     let a = document.createElement('a');
     a.setAttribute('href', `#${item.id}`);
+    a.classList.add('menu__link');
     a.appendChild(document.createTextNode(item.dataset.nav));
     li.appendChild(a);
     navBarList.append(li);
