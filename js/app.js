@@ -52,8 +52,7 @@ buildNav = (elements) => {
 // Add class 'active' to section when near top of viewport
 addActive = (elements) => {
     for (let element of elements) {
-        console.log(element.getBoundingClientRect().top);
-        if (element.getBoundingClientRect().top < 1 && element.getBoundingClientRect().top > -1) {
+        if (element.getBoundingClientRect().top < 100 && element.getBoundingClientRect().top > -100) {
             element.classList.add('your-active-class');
         }
         else {
@@ -66,6 +65,7 @@ addActive = (elements) => {
 // Scroll to anchor ID using scrollTO event
 
 scrollToSection = (elem) => {
+    console.log(elem.getBoundingClientRect().top);
     elem.scrollIntoView({
         behavior: 'smooth'
     });
@@ -90,6 +90,6 @@ navBarList.addEventListener('click', elem => {
 });
 
 // Set sections as active
-window.addEventListener('scroll', elem => {
+document.addEventListener('scroll', elem => {
     addActive(sections);
 })
