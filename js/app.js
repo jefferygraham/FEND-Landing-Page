@@ -26,6 +26,16 @@ const sections = document.querySelectorAll('section');
  * Start Helper Functions
  *
 */
+addActiveNav = (element) => {
+    const links = document.querySelectorAll('a');
+    for (let link of links) {
+        if (element === link.innerHTML) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    }
+}
 
 
 /**
@@ -53,10 +63,12 @@ buildNav = (elements) => {
 addActive = (elements) => {
     for (let element of elements) {
         if (element.getBoundingClientRect().top < 100 && element.getBoundingClientRect().top > -100) {
-            element.classList.add('your-active-class');
+            const sectionName = element.dataset.nav;
+            addActiveNav(sectionName);
+            element.classList.add('active-class');
         }
         else {
-            element.classList.remove('your-active-class');
+            element.classList.remove('active-class');
         }
     }
 }
@@ -65,7 +77,6 @@ addActive = (elements) => {
 // Scroll to anchor ID using scrollTO event
 
 scrollToSection = (elem) => {
-    console.log(elem.getBoundingClientRect().top);
     elem.scrollIntoView({
         behavior: 'smooth'
     });
